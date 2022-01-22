@@ -1,4 +1,10 @@
 /* eslint-disable react/no-array-index-key */
+
+import { CloseOutline } from '@styled-icons/evaicons-outline'
+import LinkWrapper from 'components/LinkWrapper'
+
+import * as S from './styles'
+
 /* eslint-disable react/no-danger */
 type ImageProps = {
   url: string
@@ -20,18 +26,29 @@ export type PlaceTemplateProps = {
 export default function PlacesTemplate({ place }: PlaceTemplateProps) {
   return (
     <>
-      <h1>{place.name}</h1>
-      <div dangerouslySetInnerHTML={{ __html: place.description.html }} />
+      <LinkWrapper href="/">
+        <CloseOutline size={32} aria-label="Go back to map" />
+      </LinkWrapper>
 
-      {place.gallery.map((image, index) => (
-        <img
-          key={`photo-${index}`}
-          src={image.url}
-          alt={place.name}
-          width="50%"
-          height="50%"
-        />
-      ))}
+      <S.Wrapper>
+        <S.Container>
+          <S.Heading>{place.name}</S.Heading>
+          <S.Body
+            dangerouslySetInnerHTML={{ __html: place.description.html }}
+          />
+
+          <S.Gallery>
+            {place.gallery.map((image, index) => (
+              <img
+                key={`photo-${index}`}
+                src={image.url}
+                alt={place.name}
+                width="50%"
+              />
+            ))}
+          </S.Gallery>
+        </S.Container>
+      </S.Wrapper>
     </>
   )
 }
