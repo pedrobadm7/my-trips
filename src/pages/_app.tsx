@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Head>
         <meta
           name="google-site-verification"
-          content="google129ec578647058fe.html"
+          content="vRmfowB-xHSjCpiot0qdQgyOO991QQV2J6CqrJpSvzg"
         />
         <link rel="icon" href="/logo.svg" />
         <link rel="apple-touch-icon" href="/logo.svg" />
