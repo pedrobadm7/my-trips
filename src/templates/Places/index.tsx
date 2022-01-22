@@ -1,8 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 
+import Image from 'next/Image'
+
 import { CloseOutline } from '@styled-icons/evaicons-outline'
 import LinkWrapper from 'components/LinkWrapper'
 
+import { useRouter } from 'next/router'
 import * as S from './styles'
 
 /* eslint-disable react/no-danger */
@@ -24,6 +27,10 @@ export type PlaceTemplateProps = {
 }
 
 export default function PlacesTemplate({ place }: PlaceTemplateProps) {
+  const router = useRouter()
+
+  if (router.isFallback) return null
+
   return (
     <>
       <LinkWrapper href="/">
@@ -34,16 +41,18 @@ export default function PlacesTemplate({ place }: PlaceTemplateProps) {
         <S.Container>
           <S.Heading>{place.name}</S.Heading>
           <S.Body
-            dangerouslySetInnerHTML={{ __html: place.description.html }}
+            dangerouslySetInnerHTML={{ __html: place.description?.html || '' }}
           />
 
           <S.Gallery>
             {place.gallery.map((image, index) => (
-              <img
+              <Image
                 key={`photo-${index}`}
                 src={image.url}
                 alt={place.name}
-                width="50%"
+                width={500}
+                height={300}
+                quality={75}
               />
             ))}
           </S.Gallery>
