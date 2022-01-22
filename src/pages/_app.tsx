@@ -10,11 +10,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
+        <meta
+          name="google-site-verification"
+          content="google129ec578647058fe.html"
+        />
         <link rel="icon" href="/logo.svg" />
         <link rel="apple-touch-icon" href="/logo.svg" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#06092B" />
-
         <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
