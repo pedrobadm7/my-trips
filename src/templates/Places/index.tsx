@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { NextSeo } from 'next-seo'
 
-import Image from 'next/Image'
+import Image from 'next/image'
 
 import { CloseOutline } from '@styled-icons/evaicons-outline'
 import LinkWrapper from 'components/LinkWrapper'
