@@ -42,9 +42,9 @@ const Map = ({ places }: MapProps) => {
     <S.MapWrapper>
       <MapContainer
         center={[0, 0]}
-        zoom={1}
+        zoom={2.5}
         style={{ height: '100%', width: '100%' }}
-        minZoom={1}
+        minZoom={2.5}
         maxBounds={[
           [-180, 180],
           [180, -180]
