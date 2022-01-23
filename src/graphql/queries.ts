@@ -43,6 +43,7 @@ export const GET_PLACES = gql`
         height
         width
       }
+      isVisited
     }
   }
 `
@@ -66,6 +67,7 @@ export const GET_PLACE_BY_SLUG = gql`
         height
         width
       }
+      isVisited
     }
   }
 `
