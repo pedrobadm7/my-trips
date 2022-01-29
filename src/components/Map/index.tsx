@@ -17,6 +17,7 @@ type Place = {
 
 export type MapProps = {
   places?: Place[]
+  onClick: () => void
 }
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBO_API_KEY
@@ -51,11 +52,11 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -40]
 })
 
-const Map = ({ places }: MapProps) => {
+const Map = ({ places, onClick }: MapProps) => {
   const router = useRouter()
 
   return (
-    <S.MapWrapper>
+    <S.MapWrapper onClick={onClick}>
       <MapContainer
         center={[0, 0]}
         zoom={2.5}
@@ -76,6 +77,16 @@ const Map = ({ places }: MapProps) => {
             if (width < 768) {
               map.setMinZoom(1.8)
             }
+
+            function addMarker(e: { latlng: L.LatLngExpression }) {
+              return L.marker(e.latlng, {
+                icon: markerIcon,
+                title: 'Vapo'
+              }).addTo(map)
+            }
+
+            map.on('click', addMarker)
+
             return null
           }}
         </MapConsumer>
