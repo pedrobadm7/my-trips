@@ -13,7 +13,7 @@ const Map = dynamic(() => import('components/Map'), { ssr: false })
 export default function HomeTemplate({ places }: MapProps) {
   const { isShown, toggle } = useModal()
 
-  const content = <p>Hey, I&apos;am a test modal</p>
+  const content = <p> Teste</p>
 
   return (
     <>
@@ -46,7 +46,7 @@ export default function HomeTemplate({ places }: MapProps) {
         modalContent={content}
         headerText="Teste"
       />
-      <Map onClick={toggle} places={places} />
+      <Map toggle={toggle} places={places} />
     </>
   )
 }

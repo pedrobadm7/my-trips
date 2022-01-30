@@ -17,7 +17,7 @@ type Place = {
 
 export type MapProps = {
   places?: Place[]
-  onClick: () => void
+  toggle: () => void
 }
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBO_API_KEY
@@ -52,11 +52,11 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -40]
 })
 
-const Map = ({ places, onClick }: MapProps) => {
+const Map = ({ places, toggle }: MapProps) => {
   const router = useRouter()
 
   return (
-    <S.MapWrapper onClick={onClick}>
+    <S.MapWrapper>
       <MapContainer
         center={[0, 0]}
         zoom={2.5}
@@ -85,7 +85,7 @@ const Map = ({ places, onClick }: MapProps) => {
             //   }).addTo(map)
             // }
 
-            // map.on('click', addMarker)
+            map.on('click', toggle)
 
             return null
           }}

@@ -3,9 +3,11 @@ import { MapProps } from 'components/Map'
 import client from 'graphql/client'
 import { GET_PLACES } from 'graphql/queries'
 import { GetPlacesQuery } from 'graphql/generated/graphql'
+import { useModal } from 'hooks/useModal'
 
 export default function Home({ places }: MapProps) {
-  return <HomeTemplate places={places} />
+  const { toggle } = useModal()
+  return <HomeTemplate toggle={toggle} places={places} />
 }
 
 export const getStaticProps = async () => {
