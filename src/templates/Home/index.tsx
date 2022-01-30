@@ -1,21 +1,19 @@
 import { NextSeo } from 'next-seo'
-import { useState } from 'react'
+
 import dynamic from 'next/dynamic'
 import { InfoOutline } from '@styled-icons/evaicons-outline/InfoOutline'
 
 import LinkWrapper from 'components/LinkWrapper'
 import { MapProps } from 'components/Map'
 import Modal from 'components/Modal'
+import { useModal } from 'hooks/useModal'
 
 const Map = dynamic(() => import('components/Map'), { ssr: false })
 
 export default function HomeTemplate({ places }: MapProps) {
-  const [showModal, setShowModal] = useState(false)
+  const { isShown, toggle } = useModal()
 
-  const toggleModal = () => {
-    setShowModal(!showModal)
-    console.log('Clicou')
-  }
+  const content = <p>Hey, I&apos;am a test modal</p>
 
   return (
     <>
@@ -42,10 +40,13 @@ export default function HomeTemplate({ places }: MapProps) {
       <LinkWrapper href="/about">
         <InfoOutline size="32" aria-label="About" />
       </LinkWrapper>
-      <Map onClick={toggleModal} places={places} />
-      <Modal show={showModal} onClose={() => setShowModal(false)}>
-        Lorem Ipsum is Lorem Ipsum and so on all given filters. */
-      </Modal>
+      <Modal
+        isShown={isShown}
+        hide={toggle}
+        modalContent={content}
+        headerText="Teste"
+      />
+      <Map onClick={toggle} places={places} />
     </>
   )
 }

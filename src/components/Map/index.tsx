@@ -78,14 +78,14 @@ const Map = ({ places, onClick }: MapProps) => {
               map.setMinZoom(1.8)
             }
 
-            function addMarker(e: { latlng: L.LatLngExpression }) {
-              return L.marker(e.latlng, {
-                icon: markerIcon,
-                title: 'Vapo'
-              }).addTo(map)
-            }
+            // function addMarker(e: { latlng: L.LatLngExpression }) {
+            //   return L.marker(e.latlng, {
+            //     icon: markerIcon,
+            //     title: 'Vapo'
+            //   }).addTo(map)
+            // }
 
-            map.on('click', addMarker)
+            // map.on('click', addMarker)
 
             return null
           }}

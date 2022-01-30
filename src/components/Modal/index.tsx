@@ -1,39 +1,37 @@
-import { useState, useEffect } from 'react'
+import { FunctionComponent } from 'react'
 import ReactDOM from 'react-dom'
+
 import * as S from './styles'
 
-const Modal = ({ show, onClose, children }: any) => {
-  const [isBrowser, setIsBrowser] = useState(false)
+export type ModalProps = {
+  isShown: boolean
+  hide: () => void
+  modalContent: JSX.Element
+  headerText: string
+}
 
-  useEffect(() => {
-    setIsBrowser(true)
-  }, [])
-
-  const handleClose = (e: any) => {
-    e.preventDefault()
-    onClose()
-  }
-
-  const modalContent = show && (
-    <S.Overlay>
-      <S.Modal>
-        <S.Header>
-          <button type="button" onClick={handleClose}>
-            <S.Button>Close</S.Button>
-          </button>
-        </S.Header>
-        <S.Body>{children}</S.Body>
-      </S.Modal>
-    </S.Overlay>
+const Modal: FunctionComponent<ModalProps> = ({
+  isShown,
+  hide,
+  modalContent,
+  headerText
+}) => {
+  const modal = (
+    <>
+      <S.Backdrop onClick={hide} />
+      <S.Wrapper>
+        <S.StyledModal>
+          <S.Header>
+            <S.HeaderText>{headerText}</S.HeaderText>
+            <S.CloseButton onClick={hide}>X</S.CloseButton>
+          </S.Header>
+          <S.Content>{modalContent}</S.Content>
+        </S.StyledModal>
+      </S.Wrapper>
+    </>
   )
 
-  if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById('modal-root')!
-    )
-  }
-  return null
+  return isShown ? ReactDOM.createPortal(modal, document.body) : null
 }
 
 export default Modal
