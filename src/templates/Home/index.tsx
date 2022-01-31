@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo'
-
 import dynamic from 'next/dynamic'
 import { InfoOutline } from '@styled-icons/evaicons-outline/InfoOutline'
 
@@ -12,8 +11,6 @@ const Map = dynamic(() => import('components/Map'), { ssr: false })
 
 export default function HomeTemplate({ places }: MapProps) {
   const { isShown, toggle } = useModal()
-
-  const content = <p> Teste</p>
 
   return (
     <>
@@ -40,12 +37,9 @@ export default function HomeTemplate({ places }: MapProps) {
       <LinkWrapper href="/about">
         <InfoOutline size="32" aria-label="About" />
       </LinkWrapper>
-      <Modal
-        isShown={isShown}
-        hide={toggle}
-        modalContent={content}
-        headerText="Teste"
-      />
+      <Modal isShown={isShown} hide={toggle} headerText="Teste">
+        <h1>Irei inserir países aqui</h1>
+      </Modal>
       <Map toggle={toggle} places={places} />
     </>
   )

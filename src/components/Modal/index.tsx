@@ -6,14 +6,14 @@ import * as S from './styles'
 export type ModalProps = {
   isShown: boolean
   hide: () => void
-  modalContent: JSX.Element
+  children: JSX.Element
   headerText: string
 }
 
 const Modal: FunctionComponent<ModalProps> = ({
   isShown,
   hide,
-  modalContent,
+  children,
   headerText
 }) => {
   const modal = (
@@ -25,7 +25,7 @@ const Modal: FunctionComponent<ModalProps> = ({
             <S.HeaderText>{headerText}</S.HeaderText>
             <S.CloseButton onClick={hide}>X</S.CloseButton>
           </S.Header>
-          <S.Content>{modalContent}</S.Content>
+          <S.Content>{children}</S.Content>
         </S.StyledModal>
       </S.Wrapper>
     </>

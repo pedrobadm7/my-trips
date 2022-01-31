@@ -18,6 +18,10 @@ type Place = {
 export type MapProps = {
   places?: Place[]
   toggle: () => void
+  modules?: {
+    Latitude: number
+    Longitude: number
+  }
 }
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBO_API_KEY
@@ -77,13 +81,6 @@ const Map = ({ places, toggle }: MapProps) => {
             if (width < 768) {
               map.setMinZoom(1.8)
             }
-
-            // function addMarker(e: { latlng: L.LatLngExpression }) {
-            //   return L.marker(e.latlng, {
-            //     icon: markerIcon,
-            //     title: 'Vapo'
-            //   }).addTo(map)
-            // }
 
             map.on('click', toggle)
 
