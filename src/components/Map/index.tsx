@@ -17,6 +17,11 @@ type Place = {
 
 export type MapProps = {
   places?: Place[]
+  toggle: () => void
+  modules?: {
+    Latitude: number
+    Longitude: number
+  }
 }
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBO_API_KEY
@@ -51,7 +56,7 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -40]
 })
 
-const Map = ({ places }: MapProps) => {
+const Map = ({ places, toggle }: MapProps) => {
   const router = useRouter()
 
   return (
@@ -76,6 +81,9 @@ const Map = ({ places }: MapProps) => {
             if (width < 768) {
               map.setMinZoom(1.8)
             }
+
+            map.on('click', toggle)
+
             return null
           }}
         </MapConsumer>
