@@ -1,9 +1,17 @@
 import { render, screen } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import store from '../../store'
 import Map from '.'
+
+const mockedStore = store
 
 describe('<Map />', () => {
   it('should render without any marker', () => {
-    render(<Map />)
+    render(
+      <Provider store={mockedStore}>
+        <Map />
+      </Provider>
+    )
 
     expect(
       screen.getByRole('link', {
@@ -32,7 +40,11 @@ describe('<Map />', () => {
         longitude: -50
       }
     }
-    render(<Map places={[place, placeTwo]} />)
+    render(
+      <Provider store={mockedStore}>
+        <Map places={[place, placeTwo]} />
+      </Provider>
+    )
 
     expect(screen.getByTitle(/belo horizonte/i)).toBeInTheDocument()
     expect(screen.getByTitle(/contagem/i)).toBeInTheDocument()
