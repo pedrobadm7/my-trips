@@ -2,13 +2,15 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import GlobalStyles from 'styles/global'
 import NextNprogress from 'nextjs-progressbar'
-
+import { Provider } from 'react-redux'
 import { DefaultSeo } from 'next-seo'
+import store from '../store'
+
 import SEO from '../../next-seo.config'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <meta
           name="google-site-verification"
@@ -34,7 +36,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         height={3}
       />
       <Component {...pageProps} />
-    </>
+    </Provider>
   )
 }
 

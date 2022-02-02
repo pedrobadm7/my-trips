@@ -8,6 +8,9 @@
     "settings": {
       "react": {
         "version": "detect"
+        },
+        "import/resolver": {
+          "typescript": {}
         }
       },
     "extends": [
@@ -40,6 +43,8 @@
       "react/jsx-props-no-spreading": "off",
       "import/extensions": "off",
       "import/prefer-default-export": "off",
-      "no-undef": "off"
+      "no-undef": "off",
+      "no-shadow": "off",
+      "default-param-last": "off"
     }
 }

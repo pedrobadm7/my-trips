@@ -1,7 +1,14 @@
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, MapConsumer } from 'react-leaflet'
 import L from 'leaflet'
 
+import { connect } from 'react-redux'
+import { bindActionCreators, Dispatch } from 'redux'
+
+import { ApplicationState } from 'store'
+import { Coordinate } from 'store/ducks/cordinates/types'
+import * as CoordinatesActions from '../../store/ducks/cordinates/actions'
 import * as S from './styles'
 
 type Place = {
@@ -15,14 +22,22 @@ type Place = {
   isVisited: boolean
 }
 
+type StateProps = {
+  coordinates: Coordinate[]
+  loading: boolean
+}
+
+type DispatchProps = {
+  loadCoordinate(): void
+  // getCoordinate(data: Coordinate[]): void
+}
+
 export type MapProps = {
   places?: Place[]
   toggle: () => void
-  modules?: {
-    Latitude: number
-    Longitude: number
-  }
 }
+
+type Props = StateProps & DispatchProps & MapProps
 
 const MAPBOX_API_KEY = process.env.NEXT_PUBLIC_MAPBO_API_KEY
 const MAPBOX_USERID = process.env.NEXT_PUBLIC_MAPBO_USERID
@@ -56,8 +71,34 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -40]
 })
 
-const Map = ({ places, toggle }: MapProps) => {
+const Map = ({
+  places,
+  toggle,
+  coordinates,
+  // getCoordinate,
+  loadCoordinate,
+  loading
+}: Props) => {
   const router = useRouter()
+  const [coordinate, setCoordinate] = useState({
+    latitude: 0,
+    longitude: 0
+  })
+
+  const getCoordinates = (e: any) => {
+    const latitude: number = e.latlng.lat
+    const longitude: number = e.latlng.lng
+    setCoordinate({
+      latitude,
+      longitude
+    })
+    return coordinate
+  }
+
+  useEffect(() => {
+    loadCoordinate()
+    // getCoordinate(coordinate)
+  })
 
   return (
     <S.MapWrapper>
@@ -82,7 +123,14 @@ const Map = ({ places, toggle }: MapProps) => {
               map.setMinZoom(1.8)
             }
 
+            console.log(coordinates.map((coordinate: Coordinate) => coordinate))
+
+            console.log({ loading })
+
             map.on('click', toggle)
+
+            // How to get coordinates on click?
+            map.on('click', getCoordinates)
 
             return null
           }}
@@ -110,4 +158,12 @@ const Map = ({ places, toggle }: MapProps) => {
   )
 }
 
-export default Map
+const mapStateToProps = (state: ApplicationState) => ({
+  coordinates: state.coordinates.data,
+  loading: state.coordinates.loading
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(CoordinatesActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map)
