@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import { ApplicationState } from 'store'
-import { Coordinate } from 'store/ducks/cordinates/types'
+// import { Coordinate } from 'store/ducks/cordinates/types'
 import * as CoordinatesActions from '../../store/ducks/cordinates/actions'
 import * as S from './styles'
 
@@ -23,8 +23,8 @@ type Place = {
 }
 
 type StateProps = {
-  coordinates: Coordinate[]
-  loading: boolean
+  // coordinates: Coordinate[]
+  // loading: boolean
 }
 
 type DispatchProps = {
@@ -74,11 +74,10 @@ const defaultIcon = new L.Icon({
 const Map = ({
   places,
   toggle,
-  coordinates,
   // getCoordinate,
-  loadCoordinate,
-  loading
-}: Props) => {
+  loadCoordinate
+}: // loading
+Props) => {
   const router = useRouter()
   const [coordinate, setCoordinate] = useState({
     latitude: 0,
@@ -122,10 +121,6 @@ const Map = ({
             if (width < 768) {
               map.setMinZoom(1.8)
             }
-
-            console.log(coordinates.map((coordinate: Coordinate) => coordinate))
-
-            console.log({ loading })
 
             map.on('click', toggle)
 
