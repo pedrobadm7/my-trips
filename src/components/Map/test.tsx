@@ -4,12 +4,13 @@ import store from '../../store'
 import Map from '.'
 
 const mockedStore = store
+const mockProp = jest.fn()
 
 describe('<Map />', () => {
   it('should render without any marker', () => {
     render(
       <Provider store={mockedStore}>
-        <Map />
+        <Map toggle={mockProp} />
       </Provider>
     )
 
@@ -28,7 +29,8 @@ describe('<Map />', () => {
       location: {
         latitude: 0,
         longitude: 0
-      }
+      },
+      isVisited: true
     }
 
     const placeTwo = {
@@ -38,11 +40,12 @@ describe('<Map />', () => {
       location: {
         latitude: 129,
         longitude: -50
-      }
+      },
+      isVisited: true
     }
     render(
       <Provider store={mockedStore}>
-        <Map places={[place, placeTwo]} />
+        <Map places={[place, placeTwo]} toggle={mockProp} />
       </Provider>
     )
 
