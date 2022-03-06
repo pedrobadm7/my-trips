@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, MapConsumer } from 'react-leaflet'
@@ -7,7 +8,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import { ApplicationState } from 'store'
-// import { Coordinate } from 'store/ducks/cordinates/types'
+import { Coordinate } from 'store/ducks/cordinates/types'
 import * as CoordinatesActions from '../../store/ducks/cordinates/actions'
 import * as S from './styles'
 
@@ -29,7 +30,7 @@ type StateProps = {
 
 type DispatchProps = {
   loadCoordinate(): void
-  // getCoordinate(data: Coordinate[]): void
+  getCoordinate(data: Coordinate[]): void
 }
 
 export type MapProps = {
@@ -71,18 +72,14 @@ const defaultIcon = new L.Icon({
   popupAnchor: [0, -40]
 })
 
-const Map = ({
-  places,
-  toggle,
-  // getCoordinate,
-  loadCoordinate
-}: // loading
-Props) => {
+const Map = ({ places, toggle, getCoordinate, loadCoordinate }: Props) => {
   const router = useRouter()
   const [coordinate, setCoordinate] = useState({
     latitude: 0,
     longitude: 0
   })
+
+  const arr: Coordinate[] = []
 
   const getCoordinates = (e: any) => {
     const latitude: number = e.latlng.lat
@@ -91,13 +88,13 @@ Props) => {
       latitude,
       longitude
     })
-    return coordinate
+    arr.push(coordinate)
+    getCoordinate(arr)
   }
 
   useEffect(() => {
     loadCoordinate()
-    // getCoordinate(coordinate)
-  })
+  }, [coordinate, getCoordinate, loadCoordinate])
 
   return (
     <S.MapWrapper>
@@ -124,7 +121,6 @@ Props) => {
 
             map.on('click', toggle)
 
-            // How to get coordinates on click?
             map.on('click', getCoordinates)
 
             return null

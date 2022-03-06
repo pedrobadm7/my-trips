@@ -6,10 +6,19 @@ import LinkWrapper from 'components/LinkWrapper'
 import { MapProps } from 'components/Map'
 import Modal from 'components/Modal'
 import { useModal } from 'hooks/useModal'
+import { connect } from 'react-redux'
+import { ApplicationState } from 'store'
+import { Coordinate } from 'store/ducks/cordinates/types'
+
+type StateProps = {
+  coordinates: Coordinate[]
+}
+
+type Props = StateProps & MapProps
 
 const Map = dynamic(() => import('components/Map'), { ssr: false })
 
-export default function HomeTemplate({ places }: MapProps) {
+function HomeTemplate({ places, coordinates }: Props) {
   const { isShown, toggle } = useModal()
 
   return (
@@ -38,9 +47,20 @@ export default function HomeTemplate({ places }: MapProps) {
         <InfoOutline size="32" aria-label="About" />
       </LinkWrapper>
       <Modal isShown={isShown} hide={toggle} headerText="Teste">
-        <h1>Irei inserir países aqui</h1>
+        {coordinates.map((coordinate) => (
+          <>
+            <p>Latitude: {coordinate.latitude}</p>
+            <p>Longitude: {coordinate.longitude}</p>
+          </>
+        ))}
       </Modal>
       <Map toggle={toggle} places={places} />
     </>
   )
 }
+
+const mapStateToProps = (state: ApplicationState) => ({
+  coordinates: state.coordinates.data
+})
+
+export default connect(mapStateToProps)(HomeTemplate)

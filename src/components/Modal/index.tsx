@@ -6,7 +6,8 @@ import * as S from './styles'
 export type ModalProps = {
   isShown: boolean
   hide: () => void
-  children: JSX.Element
+  // children: JSX.Element
+  children: React.ReactNode
   headerText: string
 }
 

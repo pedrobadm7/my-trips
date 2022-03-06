@@ -4,8 +4,8 @@ import { CoordinatesState, CoordinatesTypes } from './types'
 const INITIAL_STATE: CoordinatesState = {
   data: [
     {
-      latitude: -23.564,
-      longitude: -46.633
+      latitude: 0,
+      longitude: 0
     }
   ],
   loading: false
